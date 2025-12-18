@@ -1,0 +1,29 @@
+# Virtual environment
+.venv/
+
+# Environment files
+.env
+.env.local
+
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# DeepEval
+data/
+.deepeval-cache.json
+.deepeval/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.cursorindexingignore
+
+data/
+__pycache__/
+*.pyc
+.env
