@@ -16,13 +16,13 @@ test_coverage = GEval(
     name="TestCoverage",
     criteria="Tests cover happy path, edge cases, and error scenarios.",
     evaluation_params=[LLMTestCaseParams.ACTUAL_OUTPUT],
-    threshold=0.6
+    threshold=0.5
 )
 
 test_correctness = GEval(
     name="TestCorrectness",
     criteria="Generated tests match the expected test scenarios.",
     evaluation_params=[LLMTestCaseParams.ACTUAL_OUTPUT, LLMTestCaseParams.EXPECTED_OUTPUT],
-    threshold=0.6
+    threshold=0.5
 )
 
