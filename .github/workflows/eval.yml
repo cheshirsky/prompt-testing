@@ -1,0 +1,38 @@
+name: Prompt Evaluation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  evaluate:
+    name: Simple prompt evaluation
+    runs-on: ubuntu-latest
+    env:
+      PYTHON_VERSION: "3.11"
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install ruff
+      
+      - name: Lint
+        run: ruff check .
+      
+      - name: Run individual (e2e) evals
+        run: deepeval test run ./tests/
+      
+      - name: Run full flow (tracing steps)
+        env:
+          DEEPEVAL_RAISE_ERROR_ON_FAILURE: "true"
+        run: python ./tests/tdd_flow_tracing.py
