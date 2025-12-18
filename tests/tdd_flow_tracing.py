@@ -74,15 +74,12 @@ def tdd_workflow(task: str, design: str, expected_spec: str, expected_impl: str)
 # Evaluation Runner
 # =============================================================================
 
-def run_evaluation() -> bool:
-    """Run TDD workflow evaluation using evals_iterator().
-    
-    Returns:
-        True if all metrics passed, False otherwise
-    """
+def run_evaluation():
+    """Run TDD workflow evaluation using evals_iterator()."""
     dataset = create_tdd_workflow_dataset()
-    all_passed = True
     
+    # evals_iterator() collects traces and evaluates metrics
+    # With DEEPEVAL_RAISE_ERROR_ON_FAILURE=true, it will raise on failure
     for golden in dataset.evals_iterator():
         fixture = load_fixture("counter")
         
@@ -98,14 +95,13 @@ def run_evaluation() -> bool:
         print(f"Generated spec: {len(result['spec'])} chars")
         print(f"Generated impl: {len(result['impl'])} chars")
     
-    # Check if any metrics failed by examining the test run
-    # evals_iterator() aggregates results - check final status
     print("\nTDD Workflow evaluation completed.")
-    return all_passed
 
 
 if __name__ == "__main__":
-    success = run_evaluation()
-    # Exit with error code if evaluation failed (for CI)
-    sys.exit(0 if success else 1)
-
+    try:
+        run_evaluation()
+        sys.exit(0)
+    except Exception as e:
+        print(f"\nEvaluation FAILED: {e}")
+        sys.exit(1)
