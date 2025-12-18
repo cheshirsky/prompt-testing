@@ -23,7 +23,5 @@ data/
 *.swp
 .cursorindexingignore
 
-data/
-__pycache__/
-*.pyc
-.env
+# SpecStory
+.specstory/
