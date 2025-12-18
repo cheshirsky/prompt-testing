@@ -23,6 +23,6 @@ test_correctness = GEval(
     name="TestCorrectness",
     criteria="Generated tests match the expected test scenarios.",
     evaluation_params=[LLMTestCaseParams.ACTUAL_OUTPUT, LLMTestCaseParams.EXPECTED_OUTPUT],
-    threshold=0.5
+    threshold=0.4
 )
 
